@@ -1,5 +1,7 @@
 # Easter2.0: IMPROVING CONVOLUTIONAL MODELS FOR  HANDWRITTEN TEXT RECOGNITION
 
+# My work is only intended for research and training purposes and I do not own any part of Easter2.0 models
+
 This repo provides the model and code for our paper: [Easter2.0: IMPROVING CONVOLUTIONAL MODELS FOR HANDWRITTEN TEXT RECOGNITION](https://arxiv.org/pdf/2205.14879.pdf)
 
 [[[Arxiv-PDF-Link](https://arxiv.org/pdf/2205.14879.pdf)]]
