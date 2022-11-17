@@ -165,7 +165,7 @@ optimizer = torch.optim.Adam(params = model.parameters(),
 
 def train(model: torch.nn.Module,
           data_loader: torch.utils.data.DataLoader,
-          loss_fn: torch.nn.Module,
+          ctc_custom: ctc_custom,
           optimizer = torch.optim.Optimizer):
     #Creating Easter2 object
     
@@ -179,7 +179,7 @@ def train(model: torch.nn.Module,
         model.train()
         for batch, (X, y) in enumerate(data_loader):
             preds = model(X)
-            loss = loss_fn(preds, y)
+            loss = ctc_custom(preds, y)
             train_loss += loss
             optimizer.zero_grad()
             loss.backward()
