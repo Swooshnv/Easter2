@@ -1,1 +1,1 @@
-Model weights are stored in this directory
+Model weights are stored in this directory.
