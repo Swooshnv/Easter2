@@ -1,4 +1,5 @@
-tensorflow
+pytorch
+torchvision
 opencv-python
 matplotlib
 editdistance
