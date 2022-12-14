@@ -1,6 +1,9 @@
+from tabnanny import check
 import config
 import tensorflow
 import tensorflow as tf
+import torch
+from torch import nn
 import itertools
 import numpy as np
 from editdistance import eval as edit_distance
@@ -8,6 +11,7 @@ from tqdm import tqdm
 from data_loader import data_loader
 import tensorflow.keras.backend as K
 
+"""
 def ctc_custom(args):
     y_pred, labels, input_length, label_length = args
     
@@ -21,26 +25,19 @@ def ctc_custom(args):
     gamma = 0.5
     alpha=0.25 
     return alpha*(K.pow((1-p),gamma))*ctc_loss
+"""
+def ctc_custom(args):
+    y_pred, labels, input_length, label_length = args
+    loss = nn.CTCLoss()
+    ctc_loss = loss(y_pred,
+                    labels,
+                    input_length,
+                    label_length)
+    p = tensorflow.exp(-ctc_loss)
+    gamma = 0.5
+    alpha=0.25 
+    return alpha*(K.pow((1-p),gamma))*ctc_loss 
 
-def load_easter_model(checkpoint_path):
-    if checkpoint_path == "Empty":
-        checkpoint_path = config.BEST_MODEL_PATH
-    try:
-        checkpoint = tensorflow.keras.models.load_model(
-            checkpoint_path,
-            custom_objects={'<lambda>': lambda x, y: y,
-            'tf':tf}
-        )
-        
-        EASTER = tensorflow.keras.models.Model(
-            checkpoint.get_layer('the_input').input,
-            checkpoint.get_layer('Final').output
-        )
-    except:
-        print ("Unable to Load Checkpoint.")
-        return None
-    return EASTER
-    
 def decoder(output,letters):
     ret = []
     for j in range(output.shape[0]):
